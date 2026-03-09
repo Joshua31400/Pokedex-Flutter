@@ -6,39 +6,37 @@ class Pokemon {
   final String imageUrl;
 
   final String name;
-  final PokemonType type;
+  List<PokemonType>? types;
 
-  final double weight;
-  final double height;
+  final int? weight;
+  final int? height;
 
-  final List<String> cries;
-  final List<PokemonAbility> abilities;
+  List<String>? cries;
+  List<PokemonAbility>? abilities;
+  List<Pokemon>? evolutions;
 
-  final int hp;
-  final int attack;
-  final int defense;
-  final int speed;
-
-
+  final int? hp;
+  final int? attack;
+  final int? defense;
+  final int? speed;
 
   Pokemon({
     required this.id,
     required this.imageUrl,
 
     required this.name,
-    required this.type,
+    this.types,
 
-    required this.weight,
-    required this.height,
+    this.weight,
+    this.height,
 
-    required this.cries,
-    required this.abilities,
+    this.cries,
+    this.abilities,
+    this.evolutions,
 
-    required this.hp,
-    required this.attack,
-    required this.defense,
-    required this.speed,
+    this.hp,
+    this.attack,
+    this.defense,
+    this.speed,
   });
-
-
 }

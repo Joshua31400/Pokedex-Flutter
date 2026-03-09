@@ -1,11 +1,11 @@
 class PokemonType {
-  final String name;
-  final List<PokemonType> weaknesses;
-  final List<PokemonType> strengths;
+  final String imageUrl;
+  List<PokemonType>? weaknesses;
+  List<PokemonType>? strengths;
 
   PokemonType({
-    required this.name,
-    required this.weaknesses,
-    required this.strengths,
+    required this.imageUrl,
+    this.weaknesses,
+    this.strengths,
   });
 }
