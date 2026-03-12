@@ -17,27 +17,34 @@ class ApiService {
     final List results = data['results'];
 
     for (var result in results) {
-      final pokemonResponse = await http.get(Uri.parse(result['url']));
-      final pokemonData = json.decode(pokemonResponse.body);
+      try {
+        final pokemonResponse = await http.get(Uri.parse(result['url']));
+        final pokemonData = json.decode(pokemonResponse.body);
 
-      Pokemon pokemon = Pokemon(
-        id: pokemonData['id'],
-        name: pokemonData['name'],
-        imageUrl: pokemonData['sprites']['front_default'],
-        weight: pokemonData['weight'],
-        height: pokemonData['height'],
-        cries: [pokemonData['cries']['legacy'], pokemonData['cries']['latest']],
-        hp: pokemonData['stats'][0]['base_stat'],
-        attack: pokemonData['stats'][1]['base_stat'],
-        defense: pokemonData['stats'][2]['base_stat'],
-        speed: pokemonData['stats'][5]['base_stat'],
-      );
+        Pokemon pokemon = Pokemon(
+          id: pokemonData['id'],
+          name: pokemonData['name'] ?? 'Unknown',
+          imageUrl: pokemonData['sprites']['front_default'] ?? '',
+          weight: pokemonData['weight'],
+          height: pokemonData['height'],
+          cries: [
+            pokemonData['cries']?['legacy'] ?? '',
+            pokemonData['cries']?['latest'] ?? ''
+          ],
+          hp: pokemonData['stats'][0]['base_stat'],
+          attack: pokemonData['stats'][1]['base_stat'],
+          defense: pokemonData['stats'][2]['base_stat'],
+          speed: pokemonData['stats'][5]['base_stat'],
+        );
 
-      pokemon.types = await _extractTypes(pokemonData['types']);
-      pokemon.abilities = await _extractAbilities(pokemonData['abilities']);
-      pokemon.evolutions = await _extractEvolutions(pokemonData['species']['url']);
+        pokemon.types = await _extractTypes(pokemonData['types']);
+        pokemon.abilities = await _extractAbilities(pokemonData['abilities']);
+        pokemon.evolutions = await _extractEvolutions(pokemonData['species']['url']);
 
-      pokemonList.add(pokemon);
+        pokemonList.add(pokemon);
+      } catch (e) {
+        print('Error fetching pokemon: $e');
+      }
     }
     return pokemonList;
   }
@@ -114,7 +121,7 @@ class ApiService {
   Future<List<PokemonAbility>> _extractAbilities(List abilities) async {
     List<PokemonAbility> pokemonAbilities = [];
     for (var ability in abilities) {
-      final abilityResponse = await http.get(Uri.parse(ability['url']));
+      final abilityResponse = await http.get(Uri.parse(ability['ability']['url']));
       final abilityData = json.decode(abilityResponse.body);
       pokemonAbilities.add(PokemonAbility(
         name: abilityData['name'],
