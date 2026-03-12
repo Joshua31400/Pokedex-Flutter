@@ -18,9 +18,9 @@ class ApiService {
 
     for (var result in results) {
       try {
-        print('Fetching data for ${result['name']}...');
         final pokemonResponse = await http.get(Uri.parse(result['url']));
         final pokemonData = json.decode(pokemonResponse.body);
+        print('Fetching data for (${pokemonData['id']}) ${pokemonData['name']}...');
 
         Pokemon pokemon = Pokemon(
           id: pokemonData['id'],
@@ -37,7 +37,6 @@ class ApiService {
           defense: pokemonData['stats'][2]['base_stat'],
           speed: pokemonData['stats'][5]['base_stat'],
         );
-
         pokemon.types = await _extractTypes(pokemonData['types']);
         pokemon.abilities = await _extractAbilities(pokemonData['abilities']);
         pokemon.evolutions = await _extractEvolutions(pokemonData['species']['url']);
@@ -121,14 +120,25 @@ class ApiService {
     return pokemonTypes;
   }
 
+
   Future<List<PokemonAbility>> _extractAbilities(List abilities) async {
     List<PokemonAbility> pokemonAbilities = [];
+
     for (var ability in abilities) {
-      final abilityResponse = await http.get(Uri.parse(ability['ability']['url']));
+      final abilityResponse = await http.get(
+          Uri.parse(ability['ability']['url']));
       final abilityData = json.decode(abilityResponse.body);
+
+      final effectEntries = abilityData['effect_entries'] as List?;
+
+      final englishEntry = effectEntries!.firstWhere(
+            (entry) => entry['language']['name'] == 'en',
+        orElse: () => null,
+      );
+
       pokemonAbilities.add(PokemonAbility(
-        name: abilityData['name'],
-        description: abilityData['effect_entries'][2]['effect'],
+        name: abilityData['name'] ?? 'Unknown',
+        description: englishEntry['effect'] ?? 'No description available',
       ));
     }
     return pokemonAbilities;
