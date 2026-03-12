@@ -40,6 +40,48 @@ class Pokemon {
     this.speed,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'imageUrl': imageUrl,
+      'name': name,
+      'types': types?.map((t) => t.toJson()).toList(),
+      'weight': weight,
+      'height': height,
+      'cries': cries,
+      'abilities': abilities?.map((a) => a.toJson()).toList(),
+      'evolutions': evolutions?.map((e) => e.toJson()).toList(),
+      'hp': hp,
+      'attack': attack,
+      'defense': defense,
+      'speed': speed,
+    };
+  }
+
+  factory Pokemon.fromJson(Map<String, dynamic> json) {
+    return Pokemon(
+      id: json['id'],
+      imageUrl: json['imageUrl'],
+      name: json['name'],
+      types: json['types'] != null
+          ? (json['types'] as List).map((t) => PokemonType.fromJson(t)).toList()
+          : null,
+      weight: json['weight'],
+      height: json['height'],
+      cries: json['cries'] != null ? List<String>.from(json['cries']) : null,
+      abilities: json['abilities'] != null
+          ? (json['abilities'] as List).map((a) => PokemonAbility.fromJson(a)).toList()
+          : null,
+      evolutions: json['evolutions'] != null
+          ? (json['evolutions'] as List).map((e) => Pokemon.fromJson(e)).toList()
+          : null,
+      hp: json['hp'],
+      attack: json['attack'],
+      defense: json['defense'],
+      speed: json['speed'],
+    );
+  }
+
   void printDetails() {
     print('================================================================');
     print('POKEMON #$id: ${name.toUpperCase()}');

@@ -18,6 +18,7 @@ class ApiService {
 
     for (var result in results) {
       try {
+        print('Fetching data for ${result['name']}...');
         final pokemonResponse = await http.get(Uri.parse(result['url']));
         final pokemonData = json.decode(pokemonResponse.body);
 
@@ -42,6 +43,8 @@ class ApiService {
         pokemon.evolutions = await _extractEvolutions(pokemonData['species']['url']);
 
         pokemonList.add(pokemon);
+
+        print('Success!');
       } catch (e) {
         print('Error fetching pokemon: $e');
       }

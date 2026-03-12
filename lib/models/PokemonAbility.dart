@@ -6,4 +6,19 @@ class PokemonAbility {
     required this.name,
     required this.description,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'description': description,
+    };
+  }
+
+  factory PokemonAbility.fromJson(Map<String, dynamic> json) {
+    return PokemonAbility(
+      name: json['name'],
+      description: json['description'],
+    );
+  }
+
 }
