@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Pokemon App',
       navigatorKey: navigatorKey,
-      home: Tester(),
+      home: Placeholder(),
     );
   }
 }
