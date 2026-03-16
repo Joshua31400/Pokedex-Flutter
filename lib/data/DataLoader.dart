@@ -3,7 +3,10 @@ import 'package:project/models/Pokemon.dart';
 import 'ApiService.dart';
 
 class DataLoader {
-  Future<List<Pokemon>> loadPokemonList() async {
+
+  List<Pokemon> pokemonList = [];
+
+  Future<void> loadPokemonList() async {
     CacheService cache = CacheService();
     await cache.init();
 
@@ -11,12 +14,16 @@ class DataLoader {
 
     if (isCacheValid) {
       List<Pokemon> pokemonList = await cache.loadPokemonList() ?? [];
-      return pokemonList;
+      this.pokemonList = pokemonList;
     } else {
       List<Pokemon> pokemonList = await ApiService().fetchPokemonList(151, 0);
       await cache.clearCache();
       await cache.savePokemonList(pokemonList);
-      return pokemonList;
+      this.pokemonList = pokemonList;
     }
+  }
+
+  Pokemon getPokemonById(int id) {
+    return pokemonList.firstWhere((pokemon) => pokemon.id == id);
   }
 }
