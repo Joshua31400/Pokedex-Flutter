@@ -1,13 +1,38 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/models/PokemonAbility.dart';
+import 'package:project/main.dart';
 import '../models/Pokemon.dart';
 import '../models/PokemonType.dart';
+import 'ApiFetchDialog.dart';
 
 class ApiService {
   final String baseUrl = 'https://pokeapi.co/api/v2';
 
   Future<List<Pokemon>> fetchPokemonList(int limit, int offset) async {
+    final ValueNotifier<int> currentNotifier = ValueNotifier<int>(0);
+    final ValueNotifier<int> totalNotifier = ValueNotifier<int>(limit);
+
+    showDialog(
+      context: navigatorKey.currentContext!,
+      barrierDismissible: false,
+      builder: (dialogContext) => ValueListenableBuilder<int>(
+        valueListenable: currentNotifier,
+        builder: (context, current, child) {
+          return ValueListenableBuilder<int>(
+            valueListenable: totalNotifier,
+            builder: (context, total, child) {
+              return ApiFetchDialog(
+                current: current,
+                total: total,
+              );
+            },
+          );
+        },
+      ),
+    );
+
     List<Pokemon> pokemonList = [];
 
     final response = await http.get(
@@ -16,7 +41,10 @@ class ApiService {
     final data = json.decode(response.body);
     final List results = data['results'];
 
-    for (var result in results) {
+    totalNotifier.value = results.length;
+
+    for (int i = 0; i < results.length; i++) {
+      var result = results[i];
       try {
         final pokemonResponse = await http.get(Uri.parse(result['url']));
         final pokemonData = json.decode(pokemonResponse.body);
@@ -37,20 +65,26 @@ class ApiService {
           defense: pokemonData['stats'][2]['base_stat'],
           speed: pokemonData['stats'][5]['base_stat'],
         );
-        print('1');
+
         pokemon.types = await _extractTypes(pokemonData['types']);
-        print('2');
         pokemon.abilities = await _extractAbilities(pokemonData['abilities']);
-        print('3');
         pokemon.evolutions = await _extractEvolutions(pokemonData['species']['url']);
 
         pokemonList.add(pokemon);
 
-        print('Success!');
+        currentNotifier.value = i + 1;
+
+        print('Loaded ${i + 1}/${results.length}: ${pokemon.name}');
       } catch (e) {
         print('Error fetching pokemon: $e');
       }
     }
+
+
+    Navigator.of(navigatorKey.currentContext!).pop();
+    currentNotifier.dispose();
+    totalNotifier.dispose();
+
     return pokemonList;
   }
 
@@ -123,7 +157,6 @@ class ApiService {
     return pokemonTypes;
   }
 
-
   Future<List<PokemonAbility>> _extractAbilities(List abilities) async {
     List<PokemonAbility> pokemonAbilities = [];
 
@@ -141,7 +174,7 @@ class ApiService {
 
       pokemonAbilities.add(PokemonAbility(
         name: abilityData['name'] ?? 'Unknown',
-        description: englishEntry['effect'] ?? 'No description available',
+        description: englishEntry?['effect'] ?? 'No description available',
       ));
     }
     return pokemonAbilities;
