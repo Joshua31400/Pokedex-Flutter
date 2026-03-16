@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project/Tester.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
