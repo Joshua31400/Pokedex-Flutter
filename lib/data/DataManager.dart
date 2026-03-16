@@ -2,7 +2,13 @@ import 'package:project/data/CacheService.dart';
 import 'package:project/models/Pokemon.dart';
 import 'ApiService.dart';
 
-class DataLoader {
+class DataManager {
+  static final DataManager _instance = DataManager._internal();
+
+  factory DataManager() {
+    return _instance;
+  }
+  DataManager._internal();
 
   List<Pokemon> pokemonList = [];
 

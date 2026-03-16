@@ -37,8 +37,11 @@ class ApiService {
           defense: pokemonData['stats'][2]['base_stat'],
           speed: pokemonData['stats'][5]['base_stat'],
         );
+        print('1');
         pokemon.types = await _extractTypes(pokemonData['types']);
+        print('2');
         pokemon.abilities = await _extractAbilities(pokemonData['abilities']);
+        print('3');
         pokemon.evolutions = await _extractEvolutions(pokemonData['species']['url']);
 
         pokemonList.add(pokemon);
