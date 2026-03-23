@@ -12,7 +12,7 @@ class DataManager {
 
   List<Pokemon> pokemonList = [];
 
-  Future<void> loadPokemonList() async {
+  Future<void> loadPokemonList(int limit, int offset) async {
     CacheService cache = CacheService();
     await cache.init();
 
@@ -22,7 +22,7 @@ class DataManager {
       List<Pokemon> pokemonList = await cache.loadPokemonList() ?? [];
       this.pokemonList = pokemonList;
     } else {
-      List<Pokemon> pokemonList = await ApiService().fetchPokemonList(10, 0);
+      List<Pokemon> pokemonList = await ApiService().fetchPokemonList(limit, offset);
       await cache.clearCache();
       await cache.savePokemonList(pokemonList);
       this.pokemonList = pokemonList;

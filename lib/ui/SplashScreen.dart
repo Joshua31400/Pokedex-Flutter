@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _loadAndNavigate() async {
-    await DataManager().loadPokemonList();
+    await DataManager().loadPokemonList(151, 0);
 
     if (!mounted) return;
 
