@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project/models/Pokemon.dart';
-
 import '../../components/PokemonCard.dart';
 
 class TabletteContentHome extends StatefulWidget {
@@ -14,6 +13,7 @@ class TabletteContentHome extends StatefulWidget {
 
 class _TabletteContentState extends State<TabletteContentHome> {
   String _searchQuery = '';
+  final TextEditingController _searchController = TextEditingController();
 
   List<Pokemon> get _filteredPokemons {
     if (_searchQuery.isEmpty) return widget.pokemons;
@@ -23,25 +23,40 @@ class _TabletteContentState extends State<TabletteContentHome> {
   }
 
   @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // Search bar
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
+          padding: const EdgeInsets.fromLTRB(32.0, 24.0, 32.0, 8.0),
           child: TextField(
-            onChanged: (value) => setState(() => _searchQuery = value),
+            controller: _searchController,
+            onChanged: (value) {
+              setState(() {
+                _searchQuery = value;
+              });
+            },
             decoration: InputDecoration(
               hintText: "Search for a Pokemon...",
-              prefixIcon: const Icon(Icons.search),
+              hintStyle: TextStyle(color: Colors.grey[400]),
+              prefixIcon: const Icon(Icons.search, color: Color(0xFFE3350D)),
               suffixIcon: _searchQuery.isNotEmpty
                   ? IconButton(
-                icon: const Icon(Icons.clear),
-                onPressed: () => setState(() => _searchQuery = ''),
+                icon: const Icon(Icons.clear, color: Colors.grey),
+                onPressed: () {
+                  _searchController.clear();
+                  setState(() => _searchQuery = '');
+                },
               )
                   : null,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(30),
               ),
               filled: true,
               fillColor: Colors.white,
@@ -59,12 +74,13 @@ class _TabletteContentState extends State<TabletteContentHome> {
             ),
           )
               : GridView.builder(
-            padding: const EdgeInsets.all(24.0),
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.all(32.0),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 3,
+              crossAxisCount: 3,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 2.5,
             ),
             itemCount: _filteredPokemons.length,
             itemBuilder: (context, index) {

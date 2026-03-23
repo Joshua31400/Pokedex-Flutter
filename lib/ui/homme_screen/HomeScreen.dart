@@ -9,39 +9,65 @@ class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF6F6F6),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF3B4CCA),
+        backgroundColor: const Color(0xFFE3350D),
+        elevation: 0,
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset('assets/images/pokeball.png', width: 36, height: 36),
-            const SizedBox(width: 8),
-            Text(
-              "Poke Tracker",
-              style: const TextStyle(color: Colors.white, fontSize: 40),
+            Image.asset('assets/images/pokeball.png', width: 32, height: 32),
+            const SizedBox(width: 12),
+            const Text(
+              "Poké Tracker",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+              ),
             ),
           ],
         ),
         centerTitle: true,
       ),
 
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth < 767) {
-            return MobileContentHome(pokemons: DataManager().pokemonList);
-          } else {
-            return TabletteContentHome(pokemons: DataManager().pokemonList);
-          }
-        },
+      body: Stack(
+        children: [
+          Positioned(
+            top: -40,
+            right: -40,
+            child: Opacity(
+              opacity: 0.05,
+              child: Image.asset(
+                'assets/images/pokeball.png',
+                width: 250,
+                height: 250,
+              ),
+            ),
+          ),
+
+          SafeArea(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth < 767) {
+                  return MobileContentHome(pokemons: DataManager().pokemonList);
+                } else {
+                  return TabletteContentHome(pokemons: DataManager().pokemonList);
+                }
+              },
+            ),
+          ),
+        ],
       ),
 
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(10),
-        color: const Color(0xFF3B4CCA),
-        child: Text(
-          "Realised by Pedro MARTINS & Joshua BUDGEN",
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        color: const Color(0xFF313131),
+        child: const Text(
+          "© Realised by Pedro MARTINS & Joshua BUDGEN",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 15, color: Colors.white),
+          style: TextStyle(fontSize: 12, color: Colors.white70),
         ),
       ),
     );

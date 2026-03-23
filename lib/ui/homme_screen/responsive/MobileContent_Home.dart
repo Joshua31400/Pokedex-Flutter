@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project/models/Pokemon.dart';
-
 import '../../components/PokemonCard.dart';
 
 class MobileContentHome extends StatefulWidget {
@@ -14,6 +13,7 @@ class MobileContentHome extends StatefulWidget {
 
 class _MobileContentState extends State<MobileContentHome> {
   String _searchQuery = '';
+  final TextEditingController _searchController = TextEditingController();
 
   List<Pokemon> get _filteredPokemons {
     if (_searchQuery.isEmpty) return widget.pokemons;
@@ -23,13 +23,20 @@ class _MobileContentState extends State<MobileContentHome> {
   }
 
   @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // Search bar
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
           child: TextField(
+            controller: _searchController,
             onChanged: (value) {
               setState(() {
                 _searchQuery = value;
@@ -37,22 +44,23 @@ class _MobileContentState extends State<MobileContentHome> {
             },
             decoration: InputDecoration(
               hintText: "Search for a Pokemon...",
-              prefixIcon: const Icon(Icons.search),
+              hintStyle: TextStyle(color: Colors.grey[400]),
+              prefixIcon: const Icon(Icons.search, color: Color(0xFFE3350D)),
               suffixIcon: _searchQuery.isNotEmpty
                   ? IconButton(
-                icon: const Icon(Icons.clear),
+                icon: const Icon(Icons.clear, color: Colors.grey),
                 onPressed: () {
-                  setState(() {
-                    _searchQuery = '';
-                  });
+                  _searchController.clear();
+                  setState(() => _searchQuery = '');
                 },
               )
                   : null,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(30),
               ),
               filled: true,
               fillColor: Colors.white,
+              contentPadding: const EdgeInsets.symmetric(vertical: 0),
             ),
           ),
         ),
@@ -67,10 +75,14 @@ class _MobileContentState extends State<MobileContentHome> {
             ),
           )
               : ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             itemCount: _filteredPokemons.length,
             itemBuilder: (context, index) {
-              return PokemonCard(pokemon: _filteredPokemons[index]);
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: PokemonCard(pokemon: _filteredPokemons[index]),
+              );
             },
           ),
         ),
