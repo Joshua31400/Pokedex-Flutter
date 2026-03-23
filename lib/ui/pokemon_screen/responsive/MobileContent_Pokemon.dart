@@ -78,7 +78,8 @@ class _MobileContentPokemonState extends State<MobileContentPokemon>
                     // Image
                     Image.network(
                       pokemon.imageUrl,
-                      height: 160,
+                      height: 250,
+                      fit: BoxFit.contain,
                       errorBuilder: (_, __, ___) =>
                       const Icon(Icons.catching_pokemon, size: 100),
                     ),

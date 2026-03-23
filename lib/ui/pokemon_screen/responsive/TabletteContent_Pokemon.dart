@@ -85,6 +85,7 @@ class _TabletteContentPokemonState extends State<TabletteContentPokemon>
                           Image.network(
                             pokemon.imageUrl,
                             height: 220,
+                            fit: BoxFit.contain,
                             errorBuilder: (_, __, ___) => const Icon(
                                 Icons.catching_pokemon,
                                 size: 140),
