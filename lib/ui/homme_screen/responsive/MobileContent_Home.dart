@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/models/Pokemon.dart';
-import '../components/PokemonCard.dart';
+
+import '../../components/PokemonCard.dart';
 
 class MobileContentHome extends StatefulWidget {
   final List<Pokemon> pokemons;
