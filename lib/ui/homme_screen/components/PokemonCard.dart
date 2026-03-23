@@ -26,6 +26,7 @@ class PokemonCard extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         subtitle: Text("# ${pokemon.id.toString().padLeft(3, '0')}"),
+        onTap: () {},
       ),
     );
   }
