@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project/models/Pokemon.dart';
 
+import '../PokemonScreen.dart';
+
 class PokemonCard extends StatelessWidget {
   final Pokemon pokemon;
 
@@ -26,7 +28,14 @@ class PokemonCard extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         subtitle: Text("# ${pokemon.id.toString().padLeft(3, '0')}"),
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PokemonScreen(pokemon: pokemon),
+            ),
+          );
+        },
       ),
     );
   }
