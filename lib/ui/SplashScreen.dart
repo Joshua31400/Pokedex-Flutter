@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/data/DataManager.dart';
 import 'package:project/ui/homme_screen/HomeScreen.dart';
 
+// Initial loading screen displayed during app startup, used to pre-load API data before transitioning to the Home screen.
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -17,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     _loadAndNavigate();
   }
 
+  // Handles data initialization and introduces a brief artificial delay before navigating to the main app interface.
   Future<void> _loadAndNavigate() async {
     await DataManager().loadPokemonList(151, 0);
 

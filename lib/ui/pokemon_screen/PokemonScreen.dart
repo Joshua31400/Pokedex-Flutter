@@ -3,6 +3,7 @@ import 'package:project/models/Pokemon.dart';
 import 'responsive/MobileContent_Pokemon.dart';
 import 'responsive/TabletteContent_Pokemon.dart';
 
+// Detail screen wrapper that dynamically routes to the appropriate responsive layout (mobile or tablet) for a specific Pokémon.
 class PokemonScreen extends StatelessWidget {
   final Pokemon pokemon;
 

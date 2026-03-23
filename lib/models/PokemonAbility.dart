@@ -1,3 +1,5 @@
+// Data model representing a specific Pokémon ability and its text description.
+
 class PokemonAbility {
   final String name;
   final String description;

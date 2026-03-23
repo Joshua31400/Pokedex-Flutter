@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/models/Pokemon.dart';
 import '../../components/PokemonCard.dart';
 
+// Tablet-specific home view utilizing a responsive grid layout for the searchable Pokémon list.
 class TabletteContentHome extends StatefulWidget {
   final List<Pokemon> pokemons;
 

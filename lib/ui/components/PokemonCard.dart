@@ -3,6 +3,7 @@ import 'package:project/models/Pokemon.dart';
 
 import '../pokemon_screen/PokemonScreen.dart';
 
+// Reusable UI widget displaying a quick summary of a Pokémon in a clickable card format.
 class PokemonCard extends StatelessWidget {
   final Pokemon pokemon;
 

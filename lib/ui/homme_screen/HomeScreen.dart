@@ -3,6 +3,7 @@ import '../../data/DataManager.dart';
 import 'responsive/MobileContent_Home.dart';
 import 'responsive/TabletteContent_Home.dart';
 
+// Main entry point of the app, acting as a responsive wrapper that serves either the mobile or tablet layout.
 class Homescreen extends StatelessWidget {
   const Homescreen({super.key});
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/models/Pokemon.dart';
 import '../../components/PokemonCard.dart';
 
+// Mobile-specific home view featuring a searchable vertical list of Pokémon.
 class MobileContentHome extends StatefulWidget {
   final List<Pokemon> pokemons;
 

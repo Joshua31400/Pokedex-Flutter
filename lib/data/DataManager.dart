@@ -2,6 +2,7 @@ import 'package:project/data/CacheService.dart';
 import 'package:project/models/Pokemon.dart';
 import 'ApiService.dart';
 
+// Singleton class acting as the central hub for data state management
 class DataManager {
   static final DataManager _instance = DataManager._internal();
 

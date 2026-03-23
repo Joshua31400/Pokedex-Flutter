@@ -1,6 +1,8 @@
 import 'package:project/models/PokemonAbility.dart';
 import 'package:project/models/PokemonType.dart';
 
+// Core data model representing a Pokémon, including its stats, types, abilities, and evolution chain.
+// Includes JSON serialization for caching.
 class Pokemon {
   final int id;
   final String imageUrl;

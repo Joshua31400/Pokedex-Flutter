@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/models/Pokemon.dart';
 import 'package:audioplayers/audioplayers.dart';
 
+// Tablet-specific detail view providing an optimized side-by-side layout for stats and info, alongside tabs for abilities and cries.
 class TabletteContentPokemon extends StatefulWidget {
   final Pokemon pokemon;
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Dialog widget to display the progress while fetching data from the API
 class ApiFetchDialog extends StatelessWidget {
   final int current;
   final int total;
@@ -12,6 +13,7 @@ class ApiFetchDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Calculate the loading progress as a decimal and a percentage
     final progress = total > 0 ? current / total : 0.0;
     final percentage = (progress * 100).toInt();
 

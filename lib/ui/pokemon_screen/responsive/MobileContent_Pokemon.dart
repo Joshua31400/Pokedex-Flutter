@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/models/Pokemon.dart';
 import 'package:audioplayers/audioplayers.dart';
 
+// Mobile-specific detail view using a tabbed interface to display Pokémon info, abilities, and playable cries.
 class MobileContentPokemon extends StatefulWidget {
   final Pokemon pokemon;
 
@@ -35,6 +36,7 @@ class _MobileContentPokemonState extends State<MobileContentPokemon>
     super.dispose();
   }
 
+  // Toggles audio playback for the selected Pokémon cry, ensuring only one sound plays at a time.
   Future<void> _toggleCry(int index, String url) async {
     if (_playingIndex == index) {
       await _audioPlayer.stop();

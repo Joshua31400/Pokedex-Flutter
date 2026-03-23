@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:path_provider/path_provider.dart';
 import 'package:project/models/Pokemon.dart';
 
+// Manages local storage to cache API data and reduce network calls
 class CacheService {
   String _cacheFilePath = '';
   File _cacheFile = File('');

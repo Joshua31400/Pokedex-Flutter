@@ -1,3 +1,5 @@
+// Data model representing a Pokémon type, including its icon URL and lists of its damage relations (strengths and weaknesses).
+
 class PokemonType {
   final String imageUrl;
   List<PokemonType>? weaknesses;

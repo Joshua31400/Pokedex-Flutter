@@ -7,6 +7,7 @@ import '../models/Pokemon.dart';
 import '../models/PokemonType.dart';
 import 'ApiFetchDialog.dart';
 
+// Handles all HTTP requests to the PokeAPI
 class ApiService {
   final String baseUrl = 'https://pokeapi.co/api/v2';
 
@@ -43,6 +44,7 @@ class ApiService {
 
     totalNotifier.value = results.length;
 
+    // Fetch detailed data for each Pokémon in the list
     for (int i = 0; i < results.length; i++) {
       var result = results[i];
       try {
@@ -88,6 +90,7 @@ class ApiService {
     return pokemonList;
   }
 
+  // Retrieves detailed type data, calculating damage relations (strengths and weaknesses)
   Future<List<PokemonType>> _extractTypes(List types) async {
     List<PokemonType> pokemonTypes = [];
     for (var type in types) {
@@ -102,6 +105,7 @@ class ApiService {
         strengths: [],
       );
 
+      // Map API damage relations to strengths and weaknesses lists
       for (var doubleDamageFrom in typeData['damage_relations']['double_damage_from']) {
         final damageFromResponse = await http.get(Uri.parse(doubleDamageFrom['url']));
         final damageFromData = json.decode(damageFromResponse.body);
@@ -157,6 +161,7 @@ class ApiService {
     return pokemonTypes;
   }
 
+  // Extracts ability details, specifically looking for the English description
   Future<List<PokemonAbility>> _extractAbilities(List abilities) async {
     List<PokemonAbility> pokemonAbilities = [];
 
@@ -180,6 +185,7 @@ class ApiService {
     return pokemonAbilities;
   }
 
+  // Fetches the entire evolution line starting from the species URL
   Future<List<Pokemon>> _extractEvolutions(String speciesUrl) async {
     List<Pokemon> evolutions = [];
 
