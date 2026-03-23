@@ -1,18 +1,31 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project/models/Pokemon.dart';
 
 class PokemonCard extends StatelessWidget {
-  final dynamic pokemon;
+  final Pokemon pokemon;
 
   const PokemonCard({super.key, required this.pokemon});
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.symmetric(vertical: 6.0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 3,
       child: ListTile(
-        title: Text(pokemon.name),
-        subtitle: Text("Pokemon ID: ${pokemon.id}"),
-        leading: Image.network(pokemon.imageUrl),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        leading: Image.network(
+          pokemon.imageUrl,
+          width: 56,
+          height: 56,
+          errorBuilder: (context, error, stackTrace) =>
+          const Icon(Icons.catching_pokemon, size: 40),
+        ),
+        title: Text(
+          pokemon.name,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        subtitle: Text("# ${pokemon.id.toString().padLeft(3, '0')}"),
       ),
     );
   }

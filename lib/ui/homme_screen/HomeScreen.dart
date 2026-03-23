@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'responsive/MobileContent.dart';
-import 'responsive/TabletteContent.dart';
+import '../../data/DataManager.dart';
+import 'responsive/MobileContent_Home.dart';
+import 'responsive/TabletteContent_Home.dart';
 
 // Stateless Widget with no dynamic
 class Homescreen extends StatelessWidget {
@@ -25,9 +26,9 @@ class Homescreen extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth < 767) {
-            return MobileContent();
+            return MobileContentHome(pokemons: DataManager().pokemonList);
           } else {
-            return Tablettecontent().buildTabletContent();
+            return TabletteContentHome(pokemons: DataManager().pokemonList);
           }
         },
       ),

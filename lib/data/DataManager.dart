@@ -22,7 +22,7 @@ class DataManager {
       List<Pokemon> pokemonList = await cache.loadPokemonList() ?? [];
       this.pokemonList = pokemonList;
     } else {
-      List<Pokemon> pokemonList = await ApiService().fetchPokemonList(151, 0);
+      List<Pokemon> pokemonList = await ApiService().fetchPokemonList(10, 0);
       await cache.clearCache();
       await cache.savePokemonList(pokemonList);
       this.pokemonList = pokemonList;
