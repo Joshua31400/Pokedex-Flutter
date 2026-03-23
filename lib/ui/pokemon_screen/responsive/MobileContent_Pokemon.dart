@@ -122,10 +122,10 @@ class _MobileContentPokemonState extends State<MobileContentPokemon>
                       children: [
                         _infoChip(
                             Icons.monitor_weight, "Weight",
-                            "${pokemon.weight ?? 'N/A'} kg"),
+                            "${pokemon.weight ?? 'N/A'} hectograms"),
                         _infoChip(
                             Icons.height, "Height",
-                            "${pokemon.height ?? 'N/A'} m"),
+                            "${pokemon.height ?? 'N/A'} decimeters"),
                       ],
                     ),
                     const SizedBox(height: 20),

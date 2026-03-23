@@ -130,9 +130,9 @@ class _TabletteContentPokemonState extends State<TabletteContentPokemon>
                             MainAxisAlignment.spaceEvenly,
                             children: [
                               _infoChip(Icons.monitor_weight, "Weight",
-                                  "${pokemon.weight ?? 'N/A'} kg"),
+                                  "${pokemon.weight ?? 'N/A'} hectograms"),
                               _infoChip(Icons.height, "Height",
-                                  "${pokemon.height ?? 'N/A'} m"),
+                                  "${pokemon.height ?? 'N/A'} decimeters"),
                             ],
                           ),
                         ],

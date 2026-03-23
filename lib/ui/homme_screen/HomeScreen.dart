@@ -3,24 +3,26 @@ import '../../data/DataManager.dart';
 import 'responsive/MobileContent_Home.dart';
 import 'responsive/TabletteContent_Home.dart';
 
-// Stateless Widget with no dynamic
 class Homescreen extends StatelessWidget {
   const Homescreen({super.key});
 
-  // StateLess have build methode
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF3B4CCA),
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset('assets/images/pokeball.png'),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset('assets/images/pokeball.png', width: 36, height: 36),
+            const SizedBox(width: 8),
+            Text(
+              "Poke Tracker",
+              style: const TextStyle(color: Colors.white, fontSize: 40),
+            ),
+          ],
         ),
-        title: const Text(
-          "Poke Tracker",
-          style: TextStyle(color: Colors.white, fontSize: 40),
-        ),
+        centerTitle: true,
       ),
 
       body: LayoutBuilder(

@@ -14,14 +14,22 @@ class PokemonScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF3B4CCA),
         iconTheme: const IconThemeData(color: Colors.white),
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset('assets/images/pokeball.png'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
-          pokemon.name,
-          style: const TextStyle(color: Colors.white, fontSize: 40),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset('assets/images/pokeball.png', width: 36, height: 36),
+            const SizedBox(width: 8),
+            Text(
+              pokemon.name,
+              style: const TextStyle(color: Colors.white, fontSize: 40),
+            ),
+          ],
         ),
+        centerTitle: true,
       ),
 
       body: LayoutBuilder(
