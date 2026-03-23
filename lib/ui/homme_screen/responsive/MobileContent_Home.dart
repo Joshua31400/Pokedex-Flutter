@@ -26,19 +26,6 @@ class _MobileContentState extends State<MobileContentHome> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Header
-        const Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text(
-            "Welcome to our App! You can see here all infos about Pokemon.\nGood navigation!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFFFFCB05),
-              fontSize: 16,
-            ),
-          ),
-        ),
-
         // Search bar
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

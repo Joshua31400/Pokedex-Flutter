@@ -26,19 +26,6 @@ class _TabletteContentState extends State<TabletteContentHome> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Header
-        const Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Text(
-            "Welcome to our App! You can see here all infos about Pokemon.\nGood navigation!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFFFFCB05),
-              fontSize: 20,
-            ),
-          ),
-        ),
-
         // Search bar
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
